@@ -3,19 +3,19 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\View\View;
+use Illuminate\Contracts\View\Factory;
 
 class AdminController extends Controller
 {
     use AuthenticatesUsers;
 
-
+    /**
+     * @return Factory|View
+     */
     public function panel()
     {
-        $user = Auth::user();
-
-        dump($user);
-        return 'admin panel';
+        return view('admin.adminPanel');
     }
 }
