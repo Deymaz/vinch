@@ -1,6 +1,17 @@
-<form action="{{ route('updateCategory', ['id' => $category->id]) }}" method="post">
+<form action="{{ route('updateCategory', ['id' => $currentCategory->id]) }}" method="post">
     @csrf
     <label for="name">Имя категории</label>
-    <input type="text" name="name" id="name" value="{{ $category->name }}"><br>
+    <input type="text" name="name" id="name" value="{{ $currentCategory->name }}"><br>
+    <select type="radio" name="parent_category_id" id="parent_category_id">
+        <option>Без категории</option>
+        @foreach($categories as $category)
+            @if($currentCategory->parent_category_id === $category->id)
+                <option selected="selected" value="{{ $category->id }}">{{ $category->name }}</option>
+            @elseif($currentCategory->id === $category->id)
+            @else
+                <option value="{{ $category->id }}">{{ $category->name }}</option>
+            @endif
+        @endforeach
+    </select>
     <input type="submit" value="Сохранить">
 </form>

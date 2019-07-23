@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Pagination\Paginator;
 
 class Category extends Model
 {

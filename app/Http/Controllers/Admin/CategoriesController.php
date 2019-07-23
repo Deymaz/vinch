@@ -9,6 +9,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use App\Services\RequestToModelMapper;
 
 class CategoriesController extends Controller
 {
@@ -27,7 +28,8 @@ class CategoriesController extends Controller
      */
     public function createPage()
     {
-        return view('admin.createCategoryPage');
+        $categories = Category::where('parent_category_id', null)->get();
+        return view('admin.createCategoryPage', ['categories' => $categories]);
     }
 
     /**
@@ -36,10 +38,8 @@ class CategoriesController extends Controller
      */
     public function create(CreateCategoryRequest $request)
     {
-        $data = $request->validated();
         $category = new Category;
-        $category->name = $data['name'];
-
+        RequestToModelMapper::map($category, $request->validated());
         $category->save();
 
         return Redirect::route('categoriesList', ['categories' => Category::all()]);
@@ -52,8 +52,9 @@ class CategoriesController extends Controller
     public function updatePage(int $id)
     {
         $category = Category::find($id);
+        $categories = Category::where('parent_category_id', null)->get();
 
-        return view('admin.updateCategory', ['category' => $category]);
+        return view('admin.updateCategory', ['currentCategory' => $category, 'categories' => $categories]);
     }
 
     /**
@@ -63,12 +64,9 @@ class CategoriesController extends Controller
      */
     public function update(int $id, CreateCategoryRequest $request)
     {
-        $data = $request->validated();
-
         $category = Category::find($id);
-        $category->name = $data['name'];
+        RequestToModelMapper::map($category, $request->validated());
         $category->save();
-
         return Redirect::route('categoriesList', ['categories' => Category::all()]);
     }
 
