@@ -63,3 +63,8 @@ Route::get('/admin/product/create', 'Admin\ProductController@createPage')
 Route::post('/admin/product/create', 'Admin\ProductController@create')
     ->name('createProduct')
     ->middleware('web', 'auth');
+
+//ASSORTIMENT
+Route::get('/admin/assortiment/products_to_category', 'Admin\AssortimentController@productsToCategoriesPage')
+    ->name('productsToCategoriesPage')
+    ->middleware('web', 'auth');

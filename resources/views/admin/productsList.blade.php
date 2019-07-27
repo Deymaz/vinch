@@ -2,7 +2,7 @@
     @foreach ($products as $product)
         <li>
             <div>
-                <p>{{$product->name_ru}}</p>
+                <p>{{$product->name}}</p>
                 <a href="">Редактировать</a>
                 <form  method="post" action="">
                     @csrf

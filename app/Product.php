@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Product extends Model
@@ -11,9 +12,7 @@ class Product extends Model
 
     protected $fillable = [
         'category_id',
-        'name_ru',
-        'name_ua',
-        'name_en',
+        'name',
         'description_ru',
         'description_ua',
         'description_en'
@@ -22,8 +21,16 @@ class Product extends Model
     /**
      * @return HasMany
      */
-    public function attributes()
+    public function assortiment()
     {
-        return $this->hasMany('App/Attributes');
+        return $this->hasMany(Assortiment::class);
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function category()
+    {
+        $this->belongsTo(Category::class);
     }
 }
