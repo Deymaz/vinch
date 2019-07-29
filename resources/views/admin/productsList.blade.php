@@ -3,7 +3,7 @@
         <li>
             <div>
                 <p>{{$product->name}}</p>
-                <a href="">Редактировать</a>
+                <a href="{{ route('updateProductPage', $product->id) }}">Редактировать</a>
                 <form  method="post" action="">
                     @csrf
                     <input type="submit" value="Удалить">
