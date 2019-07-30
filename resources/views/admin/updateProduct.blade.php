@@ -8,7 +8,7 @@
     <label for="name">Имя продукции</label>
     <input type="text" name="name" id="name" value="{{ $product->name }}"><br>
     <div>
-        <img src="{{ asset("storage/$product->file_url")}}">
+            <img src="{{ asset("storage/$product->file_url") }}" style="width: 10%; height: 10%;">
     </div>
     <label for="file_url">Загрузить картинку</label>
     <input type="file" name="file_url" id="file_url"><br>

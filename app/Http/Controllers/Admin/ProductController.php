@@ -7,17 +7,21 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateProductRequest;
 use App\Product;
 use App\Services\ProductFileManager;
-use http\Exception\InvalidArgumentException;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use App\Services\RequestToModelMapper;
+use Illuminate\Http\RedirectResponse;
 
 class ProductController extends Controller
 {
     use AuthenticatesUsers;
 
+    /**
+     * @return Factory|View
+     */
     public function list()
     {
         return view('admin.productsList', ['products' => Product::all()]);
@@ -33,7 +37,7 @@ class ProductController extends Controller
 
     /**
      * @param CreateProductRequest $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function create(CreateProductRequest $request)
     {
@@ -72,6 +76,21 @@ class ProductController extends Controller
 
         RequestToModelMapper::map($product, $data);
         $product->save();
+
+        return Redirect::route('productsList');
+    }
+
+    /**
+     * @param int $id
+     * @return RedirectResponse
+     */
+    public function delete(int $id)
+    {
+        $product = Product::find($id);
+        $fileUrl = $product->file_url;
+
+        Storage::disk('public')->delete($fileUrl);
+        $product->delete();
 
         return Redirect::route('productsList');
     }

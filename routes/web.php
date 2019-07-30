@@ -72,6 +72,10 @@ Route::post('/admin/product/update/{id}', 'Admin\ProductController@update')
     ->name('updateProduct')
     ->middleware('web', 'auth');
 
+Route::post('/admin/product/delete/{id}', 'Admin\ProductController@delete')
+    ->name('deleteProduct')
+    ->middleware('web', 'auth');
+
 //ASSORTIMENT
 Route::get('/admin/assortiment/products_to_category', 'Admin\AssortimentController@productsToCategoriesPage')
     ->name('productsToCategoriesPage')
