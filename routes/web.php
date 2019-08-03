@@ -77,6 +77,26 @@ Route::post('/admin/product/delete/{id}', 'Admin\ProductController@delete')
     ->middleware('web', 'auth');
 
 //ASSORTIMENT
-Route::get('/admin/assortiment/products_to_category', 'Admin\AssortimentController@productsToCategoriesPage')
-    ->name('productsToCategoriesPage')
+Route::get('/admin/assortiment/list/{id}', 'Admin\AssortimentController@list')
+    ->name('assortimentList')
+    ->middleware('web', 'auth');
+
+Route::get('/admin/assortiment/create/{id}', 'Admin\AssortimentController@createPage')
+    ->name('createAssortimentPage')
+    ->middleware('web', 'auth');
+
+Route::post('/admin/assortiment/create/{id}', 'Admin\AssortimentController@create')
+    ->name('createAssortiment')
+    ->middleware('web', 'auth');
+
+Route::get('/admin/assortiment/update/{id}', 'Admin\AssortimentController@updatePage')
+    ->name('updateAssortimentPage')
+    ->middleware('web', 'auth');
+
+Route::post('/admin/assortiment/update/{id}', 'Admin\AssortimentController@update')
+    ->name('updateAssortiment')
+    ->middleware('web', 'auth');
+
+Route::post('/admin/assortiment/delete/{id}', 'Admin\AssortimentController@delete')
+    ->name('deleteAssortiment')
     ->middleware('web', 'auth');

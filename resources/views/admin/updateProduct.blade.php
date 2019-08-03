@@ -2,7 +2,7 @@
     @csrf
     <select type="radio" name="category_id" id="category_id">
         @foreach($categories as $category)
-            <option value="{{ $category->id }}">{{ $category->name }}</option>
+            <option value="{{ $category->id }}">{{ $category->name }} ()</option>
         @endforeach
     </select>
     <label for="name">Имя продукции</label>
@@ -22,6 +22,6 @@
     <input type="text" name="description_en" id="description_en" value="{{ $product->description_en }}"><br>
     <input type="submit" value="Сохранить">
     @error('file_url')
-    <div class="alert alert-danger">{{ $message }}</div>
+    <div>{{ $message }}</div>
     @enderror
 </form>

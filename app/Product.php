@@ -22,7 +22,7 @@ class Product extends Model
     /**
      * @return HasMany
      */
-    public function assortiment()
+    public function assortiment(): HasMany
     {
         return $this->hasMany(Assortiment::class);
     }
@@ -30,8 +30,8 @@ class Product extends Model
     /**
      * @return BelongsTo
      */
-    public function category()
+    public function category(): BelongsTo
     {
-        $this->belongsTo(Category::class);
+       return $this->belongsTo(Category::class);
     }
 }
