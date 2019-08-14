@@ -1,4 +1,4 @@
-<form action="{{ route('updateProduct', $product->id) }}" method="post" enctype="multipart/form-data">
+<form action="{{ route('updateProduct', [app()->getLocale(), $product->id]) }}" method="post" enctype="multipart/form-data">
     @csrf
     <select type="radio" name="category_id" id="category_id">
         @foreach($categories as $category)

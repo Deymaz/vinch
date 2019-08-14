@@ -1,4 +1,4 @@
-<form action="{{ route('createCategory') }}" method="post">
+<form action="{{ route('createCategory', [app()->getLocale()]) }}" method="post">
     @csrf
     <label for="name">Имя категории</label>
     <input type="text" name="name" id="name"><br>

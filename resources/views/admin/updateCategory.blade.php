@@ -1,4 +1,4 @@
-<form action="{{ route('updateCategory', ['id' => $currentCategory->id]) }}" method="post">
+<form action="{{ route('updateCategory', [app()->getLocale(), 'id' => $currentCategory->id]) }}" method="post">
     @csrf
     <label for="name">Имя категории</label>
     <input type="text" name="name" id="name" value="{{ $currentCategory->name }}"><br>

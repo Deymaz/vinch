@@ -1,4 +1,4 @@
-<form action="{{ route('createAssortiment', $id) }}" method="POST">
+<form action="{{ route('createAssortiment', [app()->getLocale(), $id]) }}" method="POST">
     @csrf
     @foreach($fieldList as $field => $name)
         <label for="{{ $field }}">{{ $name }}</label>
