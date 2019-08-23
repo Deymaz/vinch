@@ -8,6 +8,7 @@ use App\Http\Requests\CreateAssortimentRequest;
 use App\Product;
 use App\Services\ProductAssortimentFieldList;
 use App\Services\RequestToModelMapper;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use Illuminate\Contracts\View\Factory;
@@ -52,7 +53,7 @@ class AssortimentController extends Controller
         RequestToModelMapper::map($assortiment, array_merge(['product_id' => $product->id], $request->validated()));
         $assortiment->save();
 
-        return Redirect::route('productsList');
+        return Redirect::route('productsList', ['locale' => Config::get('app.locale')]);
     }
 
     /**
@@ -80,7 +81,9 @@ class AssortimentController extends Controller
         RequestToModelMapper::map($assortiment, $request->validated());
         $assortiment->save();
 
-        return Redirect::route('productsList');
+        return Redirect::route('productsList',
+            ['locale' => Config::get('app.locale')]
+        );
     }
 
     /**
@@ -92,6 +95,6 @@ class AssortimentController extends Controller
     {
         Assortiment::destroy([$id]);
 
-        return Redirect::route('productsList');
+        return Redirect::route('productsList', ['locale' => Config::get('app.locale')]);
     }
 }

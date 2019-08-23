@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use App\Services\RequestToModelMapper;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Config;
 
 class ProductController extends Controller
 {
@@ -50,7 +51,7 @@ class ProductController extends Controller
         RequestToModelMapper::map($product, $data);
         $product->save();
 
-        return Redirect::route('productsList');
+        return Redirect::route('productsList', Config::get('app.locale'));
     }
 
     /**
@@ -77,7 +78,7 @@ class ProductController extends Controller
         RequestToModelMapper::map($product, $data);
         $product->save();
 
-        return Redirect::route('productsList');
+        return Redirect::route('productsList', Config::get('app.locale'));
     }
 
     /**
@@ -92,6 +93,6 @@ class ProductController extends Controller
         Storage::disk('public')->delete($fileUrl);
         $product->delete();
 
-        return Redirect::route('productsList');
+        return Redirect::route('productsList', Config::get('app.locale'));
     }
 }

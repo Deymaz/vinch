@@ -8,6 +8,7 @@ class ProductAssortimentFieldList
 {
     private const LIST = [
         'qwe' => ['name' => 'Имя', 'usage' => 'Использование', 'crop_potential' => 'Потенциал'],
+        '123' => ['name' => 'Имя', 'usage' => 'Использование', 'crop_potential' => 'Потенциал'],
     ];
 
     /**

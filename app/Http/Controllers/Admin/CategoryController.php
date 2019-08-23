@@ -7,11 +7,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateCategoryRequest;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\Services\RequestToModelMapper;
 
-class CategoriesController extends Controller
+class CategoryController extends Controller
 {
     use AuthenticatesUsers;
 
@@ -42,7 +43,10 @@ class CategoriesController extends Controller
         RequestToModelMapper::map($category, $request->validated());
         $category->save();
 
-        return Redirect::route('categoriesList', ['categories' => Category::all()]);
+        return Redirect::route(
+            'categoriesList',
+            ['locale' => Config::get('app.locale'), 'categories' => Category::all()]
+        );
     }
 
     /**
@@ -67,7 +71,10 @@ class CategoriesController extends Controller
         $category = Category::find($id);
         RequestToModelMapper::map($category, $request->validated());
         $category->save();
-        return Redirect::route('categoriesList', ['categories' => Category::all()]);
+
+        return Redirect::route(
+            'categoriesList', ['locale' => Config::get('app.locale'), 'categories' => Category::all()]
+        );
     }
 
     /**
@@ -78,6 +85,8 @@ class CategoriesController extends Controller
     {
         Category::destroy([$id]);
 
-        return Redirect::route('categoriesList', ['categories' => Category::all()]);
+        return Redirect::route(
+            'categoriesList', ['locale' => Config::get('app.locale'), 'categories' => Category::all()]
+        );
     }
 }

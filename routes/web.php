@@ -24,42 +24,74 @@ Route::post('/admin/login', 'Auth\LoginController@login')->name('login');
 Route::group(['middleware' => 'auth'], function () {
 });
 
+Route::get('/categories/list/{id}', 'CategoryController@subcategoriesList')
+    ->name('subcategoriesList')
+    ->middleware('web', 'locale')
+    ->prefix('{locale}')
+    ->where(['locale' => '[a-zA-Z]{2}']);
+
+Route::get('/product/list/{category_id}', 'ProductController@getByCategory')
+    ->name('productsToCategoryList')
+    ->middleware('web', 'locale')
+    ->prefix('{locale}')
+    ->where(['locale' => '[a-zA-Z]{2}']);
+
+Route::get('/assortiment/list/{product_id}', 'AssortimentController@getByProduct')
+    ->name('productAssortiment')
+    ->middleware('web', 'locale')
+    ->prefix('{locale}')
+    ->where(['locale' => '[a-zA-Z]{2}']);
+
+Route::get('/about_us', 'AboutUsController@page')
+    ->name('aboutUs')
+    ->middleware('web', 'locale')
+    ->prefix('{locale}')
+    ->where(['locale' => '[a-zA-Z]{2}']);
+
+Route::get('/contacts', 'ContactsController@page')
+    ->name('contacts')
+    ->middleware('web', 'locale')
+    ->prefix('{locale}')
+    ->where(['locale' => '[a-zA-Z]{2}']);
+
+// ADMIN ROUTES START
 Route::get('/admin/panel', 'Admin\AdminController@panel')
     ->name('adminPanel')
-    ->middleware('web', 'auth');
-
+    ->middleware('web', 'auth', 'locale')
+    ->prefix('{locale}')
+    ->where(['locale' => '[a-zA-Z]{2}']);
 //CATEGORIES
-Route::get('/admin/category/list', 'Admin\CategoriesController@categoriesList')
+Route::get('/admin/category/list', 'Admin\CategoryController@categoriesList')
     ->name('categoriesList')
     ->middleware('web', 'auth', 'locale')
     ->prefix('{locale}')
     ->where(['locale' => '[a-zA-Z]{2}']);
 
-Route::get('/admin/category/create', 'Admin\CategoriesController@createPage')
+Route::get('/admin/category/create', 'Admin\CategoryController@createPage')
     ->name('createCategoryPage')
     ->middleware('web', 'auth', 'locale')
     ->prefix('{locale}')
     ->where(['locale' => '[a-zA-Z]{2}']);
 
-Route::post('/admin/category/create', 'Admin\CategoriesController@create')
+Route::post('/admin/category/create', 'Admin\CategoryController@create')
     ->name('createCategory')
     ->middleware('web', 'auth', 'locale')
     ->prefix('{locale}')
     ->where(['locale' => '[a-zA-Z]{2}']);
 
-Route::get('/admin/category/update/{id}', 'Admin\CategoriesController@updatePage')
+Route::get('/admin/category/update/{id}', 'Admin\CategoryController@updatePage')
     ->name('updateCategoryPage')
     ->middleware('web', 'auth', 'locale')
     ->prefix('{locale}')
     ->where(['locale' => '[a-zA-Z]{2}']);
 
-Route::post('/admin/category/update/{id}', 'Admin\CategoriesController@update')
+Route::post('/admin/category/update/{id}', 'Admin\CategoryController@update')
     ->name('updateCategory')
     ->middleware('web', 'auth', 'locale')
     ->prefix('{locale}')
     ->where(['locale' => '[a-zA-Z]{2}']);
 
-Route::post('/admin/category/delete/{id}', 'Admin\CategoriesController@delete')
+Route::post('/admin/category/delete/{id}', 'Admin\CategoryController@delete')
     ->name('deleteCategory')
     ->middleware('web', 'auth', 'locale')
     ->prefix('{locale}')
