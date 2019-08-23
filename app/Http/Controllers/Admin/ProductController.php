@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Category;
+use App\Exceptions\ModelNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateProductRequest;
 use App\Product;
@@ -45,7 +46,9 @@ class ProductController extends Controller
         $product = new Product;
         $data = $request->validated();
         if ($request->hasFile('file_url')) {
-            $data['file_url'] = ProductFileManager::save($request->file('file_url'), $request->get('name'));
+            $category = Category::find((int)$data['category_id']);
+            $fileName = sprintf('%s_%s', $category->name, $data['name']);
+            $data['file_url'] = ProductFileManager::save($request->file('file_url'), $fileName);
         }
 
         RequestToModelMapper::map($product, $data);
@@ -61,6 +64,9 @@ class ProductController extends Controller
     public function updatePage(int $id)
     {
         $product = Product::find($id);
+        if (null === $product) {
+            throw new ModelNotFoundException('Product does not exists');
+        }
         $categories = Category::whereNotNull('parent_category_id')->get();
 
         return view('admin.updateProduct', ['product' => $product, 'categories' => $categories ]);
@@ -69,11 +75,16 @@ class ProductController extends Controller
     public function update(int $id, CreateProductRequest $request)
     {
         $product = Product::find($id);
+        if (null === $product) {
+            throw new ModelNotFoundException('Product does not exists');
+        }
+
         $data = $request->validated();
 
+        $fileName = sprintf('%s_%s', $product->category->name, $data['name']);
         $data['file_url'] = $request->hasFile('file_url')
-            ? ProductFileManager::save($request->file('file_url'), $request->get('name'))
-            : ProductFileManager::editName($product->file_url, $data['name']);
+            ? ProductFileManager::save($request->file('file_url'), $fileName)
+            : ProductFileManager::editName($product->file_url, $fileName);
 
         RequestToModelMapper::map($product, $data);
         $product->save();
@@ -88,6 +99,11 @@ class ProductController extends Controller
     public function delete(int $id)
     {
         $product = Product::find($id);
+
+        if (null === $product) {
+            throw new ModelNotFoundException('Product does not exists');
+        }
+
         $fileUrl = $product->file_url;
 
         Storage::disk('public')->delete($fileUrl);

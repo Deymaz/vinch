@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Assortiment;
+use App\Exceptions\ModelNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateAssortimentRequest;
 use App\Product;
@@ -43,11 +44,17 @@ class AssortimentController extends Controller
      * @param int $id
      * @param CreateAssortimentRequest $request
      *
+     * @throws ModelNotFoundException
+     *
      * @return RedirectResponse
      */
     public function create(int $id, CreateAssortimentRequest $request)
     {
         $product = Product::find($id);
+
+        if (null === $product) {
+            throw new ModelNotFoundException('Product does not exists');
+        }
 
         $assortiment = new Assortiment;
         RequestToModelMapper::map($assortiment, array_merge(['product_id' => $product->id], $request->validated()));
@@ -58,11 +65,19 @@ class AssortimentController extends Controller
 
     /**
      * @param int $id
+     *
+     * @throws ModelNotFoundException
+     *
      * @return Factory|View
      */
     public function updatePage(int $id)
     {
         $assortiment = Assortiment::find($id);
+
+        if (null === $assortiment) {
+            throw new ModelNotFoundException('Assortiment does not exists');
+        }
+
         $fieldList = ProductAssortimentFieldList::list($assortiment->product);
 
         return view('admin.updateAssortimentPage', ['fieldList' => $fieldList, 'assortiment' => $assortiment]);
@@ -72,11 +87,17 @@ class AssortimentController extends Controller
      * @param int $id
      * @param CreateAssortimentRequest $request
      *
+     * @throws ModelNotFoundException
+     *
      * @return RedirectResponse
      */
     public function update(int $id, CreateAssortimentRequest $request)
     {
         $assortiment = Assortiment::find($id);
+
+        if (null === $assortiment) {
+            throw new ModelNotFoundException('Assortiment does not exists');
+        }
 
         RequestToModelMapper::map($assortiment, $request->validated());
         $assortiment->save();

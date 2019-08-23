@@ -1,3 +1,5 @@
+@include('header')
+
 <form action="{{ route('updateCategory', [app()->getLocale(), 'id' => $currentCategory->id]) }}" method="post">
     @csrf
     <label for="name">Имя категории</label>

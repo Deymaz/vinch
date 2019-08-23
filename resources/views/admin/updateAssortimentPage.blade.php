@@ -1,3 +1,5 @@
+@include('header')
+
 <form action="{{ route('updateAssortiment', [app()->getLocale(), $assortiment->id]) }}" method="POST">
     @csrf
     @foreach($fieldList as $field => $name)

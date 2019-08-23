@@ -1,3 +1,5 @@
+@include('header')
+
 <form action="{{ route('createCategory', [app()->getLocale()]) }}" method="post">
     @csrf
     <label for="name">Имя категории</label>

@@ -1,18 +1,24 @@
 @include('header')
 
-<ul>
     @foreach ($products as $product)
-        <li>
             <div>
-                <p>{{$product->name}} ({{ $product->category->name }})</p>
-                <a href="{{ route('updateProductPage', [app()->getLocale(), $product->id]) }}">Редактировать</a><br>
-                <a href="{{ route('createAssortimentPage', [app()->getLocale(), $product->id]) }}">Добавить ассортимент</a><br>
-                <a href="{{ route('assortimentList', [app()->getLocale(), $product->id]) }}">Ассортимент продукта</a>
-                <form  method="post" action="{{route("deleteProduct", [app()->getLocale(), $product->id])}}">
+                <h3>{{$product->name}} ({{ $product->category->name }})</h3>
+                <div class="float-left small-padding-right">
+                    <a class="btn btn-warning"
+                       href="{{ route('updateProductPage', [app()->getLocale(), $product->id]) }}">Редактировать</a>
+                </div>
+                <div class="float-left small-padding-right">
+                    <a class="btn btn-primary"
+                       href="{{ route('createAssortimentPage', [app()->getLocale(), $product->id]) }}">Добавить
+                        ассортимент</a>
+                </div>
+                <div class="float-left small-padding-right"><a class="btn btn-info" href="{{ route('assortimentList', [app()->getLocale(), $product->id]) }}">Ассортимент
+                        продукта</a>
+                </div>
+                <form method="post" action="{{route("deleteProduct", [app()->getLocale(), $product->id])}}">
                     @csrf
-                    <input type="submit" value="Удалить">
+                    <input type="submit" class="btn btn-danger" value="Удалить">
                 </form>
             </div>
-        </li>
+        <hr>
     @endforeach
-</ul>

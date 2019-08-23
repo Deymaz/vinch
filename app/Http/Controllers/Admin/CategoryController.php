@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Category;
+use App\Exceptions\ModelNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateCategoryRequest;
 use Illuminate\Contracts\View\Factory;
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\Services\RequestToModelMapper;
+use Illuminate\Http\RedirectResponse;
 
 class CategoryController extends Controller
 {
@@ -35,7 +37,8 @@ class CategoryController extends Controller
 
     /**
      * @param CreateCategoryRequest $request
-     * @return \Illuminate\Http\RedirectResponse
+     *
+     * @return RedirectResponse
      */
     public function create(CreateCategoryRequest $request)
     {
@@ -51,11 +54,19 @@ class CategoryController extends Controller
 
     /**
      * @param int $id
+     *
+     * @throws ModelNotFoundException
+     *
      * @return Factory|View
      */
     public function updatePage(int $id)
     {
         $category = Category::find($id);
+
+        if (null === $category) {
+            throw new ModelNotFoundException('Category does not exists');
+        }
+
         $categories = Category::where('parent_category_id', null)->get();
 
         return view('admin.updateCategory', ['currentCategory' => $category, 'categories' => $categories]);
@@ -64,11 +75,18 @@ class CategoryController extends Controller
     /**
      * @param int $id
      * @param CreateCategoryRequest $request
-     * @return \Illuminate\Http\RedirectResponse
+     *
+     * @throws ModelNotFoundException
+     *
+     * @return RedirectResponse
      */
     public function update(int $id, CreateCategoryRequest $request)
     {
         $category = Category::find($id);
+
+        if (null === $category) {
+            throw new ModelNotFoundException('Category does not exists');
+        }
         RequestToModelMapper::map($category, $request->validated());
         $category->save();
 

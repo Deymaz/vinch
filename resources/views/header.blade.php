@@ -1,6 +1,8 @@
 <html>
 <head>
     <title>App Name - @yield('header')</title>
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
 </head>
 <body>
 <header>

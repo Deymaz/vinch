@@ -1,3 +1,5 @@
+@include('header')
+
 <ul>
     @foreach ($assortimentList as $assortiment)
         <li>

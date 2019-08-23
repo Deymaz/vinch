@@ -1,3 +1,5 @@
+@include('header')
+
 <ul>
     @foreach ($categories as $category)
         <li>

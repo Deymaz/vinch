@@ -1,3 +1,5 @@
+@include('header')
+
 <form action="{{ route('createProduct', [app()->getLocale()]) }}" method="post" enctype="multipart/form-data">
     @csrf
     <select type="radio" name="category_id" id="category_id">

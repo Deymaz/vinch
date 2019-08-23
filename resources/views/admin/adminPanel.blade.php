@@ -1,3 +1,5 @@
+@include('header')
+
 <ul>
     <li><a href="{{ route('categoriesList',[app()->getLocale()]) }}">Список категорий</a></li>
     <li><a href="{{ route('createCategoryPage', [app()->getLocale()]) }}">Создать категорию</a></li>

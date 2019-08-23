@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Exceptions\UnsupportedImageFormatException;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
@@ -12,6 +13,9 @@ class ProductFileManager
     /**
      * @param UploadedFile $file
      * @param string $name
+     *
+     * @throws UnsupportedImageFormatException
+     *
      * @return string
      */
     public static function save(UploadedFile $file, string $name): string
@@ -20,6 +24,11 @@ class ProductFileManager
             case 'image/png':
                 $name .= '.png';
                 break;
+            default:
+                throw new UnsupportedImageFormatException(sprintf(
+                    '%s this file format does not support',
+                    $file->getMimeType()
+                    ));
         }
 
         return $file->storePubliclyAs('images', strtolower($name));
