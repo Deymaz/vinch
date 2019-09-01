@@ -4,11 +4,16 @@
     @foreach ($categories as $category)
         <li>
                 <div>
-                        <p>{{$category->name}}</p>
-                        <a href="{{ route('updateCategory', [app()->getLocale(), 'id' => $category->id]) }}">Редактировать</a>
-                        <form  method="post" action="{{ route('deleteCategory', [app()->getLocale(), 'id' => $category->id]) }}">
+
+                        <div style="min-width: 200px" class="float-left">{{$category->name}}</div>
+                        <div class="float-left small-padding-right">
+                            <a class="btn btn-warning" href="{{ route('updateCategory', [app()->getLocale(), 'id' => $category->id]) }}">Редактировать</a>
+                        </div>
+                        <form method="post" action="{{ route('deleteCategory', [app()->getLocale(), 'id' => $category->id]) }}">
                                 @csrf
-                                <input type="submit" value="Удалить">
+                            <div class="small-padding-right">
+                                <input type="submit"  class="btn btn-danger" value="Удалить">
+                            </div>
                         </form>
                 </div>
         </li>

@@ -3,7 +3,7 @@
 <form action="{{ route('updateCategory', [app()->getLocale(), 'id' => $currentCategory->id]) }}" method="post">
     @csrf
     <label for="name">Имя категории</label>
-    <input type="text" name="name" id="name" value="{{ $currentCategory->name }}"><br>
+    <input type="text"  size="30" name="name" id="name" value="{{ $currentCategory->name }}"><br>
     <select type="radio" name="parent_category_id" id="parent_category_id">
         <option value="">Без категории</option>
         @foreach($categories as $category)
@@ -15,7 +15,7 @@
             @endif
         @endforeach
     </select>
-    <input type="submit" value="Сохранить">
+    <input type="submit" class="btn btn-success" value="Сохранить">
     @error('name')
     <div class="alert alert-danger">{{ $message }}</div>
     @enderror

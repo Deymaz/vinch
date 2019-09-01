@@ -1,5 +1,4 @@
 @include('header')
-
     @foreach ($products as $product)
             <div>
                 <h3>{{$product->name}} ({{ $product->category->name }})</h3>
