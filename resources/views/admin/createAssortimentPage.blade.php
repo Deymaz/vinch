@@ -10,3 +10,6 @@
     @endforeach
     <input type="submit" class="margin-left-25 btn btn-success" value="Сохранить">
 </form>
+
+@include('footer')
+

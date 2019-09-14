@@ -54,6 +54,18 @@ Route::get('/contacts', 'ContactsController@page')
     ->prefix('{locale}')
     ->where(['locale' => '[a-zA-Z]{2}']);
 
+Route::get('/feedback', 'FeedbackController@page')
+    ->name('feedback')
+    ->middleware('web', 'locale')
+    ->prefix('{locale}')
+    ->where(['locale' => '[a-zA-Z]{2}']);
+
+Route::get('/delivery_and_payment', 'DeliveryAndPaymentController@page')
+    ->name('deliveryAndPayment')
+    ->middleware('web', 'locale')
+    ->prefix('{locale}')
+    ->where(['locale' => '[a-zA-Z]{2}']);
+
 // ADMIN ROUTES START
 Route::get('/admin/panel', 'Admin\AdminController@panel')
     ->name('adminPanel')

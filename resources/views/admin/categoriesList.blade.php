@@ -19,3 +19,6 @@
         </li>
     @endforeach
 </ul>
+
+@include('footer')
+

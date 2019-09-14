@@ -9,3 +9,6 @@
     <li><a href="{{ route('productsList', [app()->getLocale()]) }}">Список товаров</a></li>
     <li><a href="{{ route('createProductPage', [app()->getLocale()]) }}">Создать товар</a></li>
 </ul>
+
+@include('footer')
+

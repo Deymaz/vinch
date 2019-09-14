@@ -31,3 +31,5 @@
     <div class="alert alert-danger">{{ $message }}</div>
     @enderror
 </form>
+
+@include('footer')

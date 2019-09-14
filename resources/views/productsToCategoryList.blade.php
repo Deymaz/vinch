@@ -6,3 +6,6 @@
         {{ $product->name }}
     </a> <br>
 @endforeach
+
+@include('footer')
+

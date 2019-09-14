@@ -1,6 +1,5 @@
 @include('header')
 
-<h1>About us</h1>
+<h1>Feedback</h1>
 
 @include('footer')
-

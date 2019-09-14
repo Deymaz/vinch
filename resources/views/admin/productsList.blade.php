@@ -21,3 +21,5 @@
             </div>
         <hr>
     @endforeach
+
+@include('footer')

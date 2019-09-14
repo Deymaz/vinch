@@ -34,3 +34,5 @@
     <div>{{ $message }}</div>
     @enderror
 </form>
+
+@include('footer')
