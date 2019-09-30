@@ -267,3 +267,12 @@ footer {
    line-height: 1.2;
    border-bottom: 1px solid transparent;
 }
+
+.feedback-container {
+    padding-top: 30px;
+    padding-left: 150px;
+}
+
+.feedback_label {
+    width: 100px;
+}

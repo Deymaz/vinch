@@ -42,6 +42,12 @@ Route::get('/assortiment/list/{product_id}', 'AssortimentController@getByProduct
     ->prefix('{locale}')
     ->where(['locale' => '[a-zA-Z]{2}']);
 
+Route::get('/assortiment/{id}', 'AssortimentController@getById')
+    ->name('assortiment')
+    ->middleware('web', 'locale')
+    ->prefix('{locale}')
+    ->where(['locale' => '[a-zA-Z]{2}']);
+
 Route::get('/about_us', 'AboutUsController@page')
     ->name('aboutUs')
     ->middleware('web', 'locale')
@@ -60,6 +66,12 @@ Route::get('/feedback', 'FeedbackController@page')
     ->prefix('{locale}')
     ->where(['locale' => '[a-zA-Z]{2}']);
 
+Route::post('/feedback', 'FeedbackController@submit')
+    ->name('feedbackSubmit')
+    ->middleware('web', 'locale')
+    ->prefix('{locale}')
+    ->where(['locale' => '[a-zA-Z]{2}']);
+
 Route::get('/delivery_and_payment', 'DeliveryAndPaymentController@page')
     ->name('deliveryAndPayment')
     ->middleware('web', 'locale')
@@ -72,6 +84,25 @@ Route::get('/admin/panel', 'Admin\AdminController@panel')
     ->middleware('web', 'auth', 'locale')
     ->prefix('{locale}')
     ->where(['locale' => '[a-zA-Z]{2}']);
+
+Route::get('/admin/feedback/list', 'Admin\FeedbackController@list')
+    ->name('feedback_list_admin')
+    ->middleware('web', 'auth', 'locale')
+    ->prefix('{locale}')
+    ->where(['locale' => '[a-zA-Z]{2}']);
+
+Route::get('/admin/feedback/{id}', 'Admin\FeedbackController@get')
+    ->name('feedback_admin')
+    ->middleware('web', 'auth', 'locale')
+    ->prefix('{locale}')
+    ->where(['locale' => '[a-zA-Z]{2}']);
+
+Route::post('/admin/feedback/status/{id}', 'Admin\FeedbackController@changeStatus')
+    ->name('feedbackStatus')
+    ->middleware('web', 'locale')
+    ->prefix('{locale}')
+    ->where(['locale' => '[a-zA-Z]{2}']);
+
 //CATEGORIES
 Route::get('/admin/category/list', 'Admin\CategoryController@categoriesList')
     ->name('categoriesList')

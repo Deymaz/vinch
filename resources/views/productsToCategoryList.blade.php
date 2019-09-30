@@ -3,7 +3,7 @@
 
 @foreach($products as $product)
     <a href="{{ route('productAssortiment', [app()->getLocale(), 'id' => $product->id]) }}">
-        {{ $product->name }}
+        <h3>{{ $product->name }}</h3>
     </a> <br>
 @endforeach
 

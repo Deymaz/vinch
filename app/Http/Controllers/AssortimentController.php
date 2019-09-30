@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Assortiment;
 use App\Exceptions\ModelNotFoundException;
 use App\Product;
 use Illuminate\View\View;
@@ -25,5 +26,21 @@ class AssortimentController extends Controller
         }
 
         return view('productAssortimentPage', ['assortiment' => $product->assortiment]);
+    }
+
+    /**
+     * @param int $id
+     *
+     * @return Factory|View
+     */
+    public function getById(int $id)
+    {
+        $assortiment = Assortiment::find($id);
+
+        if (null === $assortiment) {
+            throw new ModelNotFoundException('Assortiment does not exists');
+        }
+
+        return view('assortiment', ['assortiment' => $assortiment]);
     }
 }

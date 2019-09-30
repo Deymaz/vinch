@@ -70,10 +70,10 @@
                         <ul>
                             @foreach($products2 as $product)
                                 <li>
-                                    <a>{{ $product->name }} </a>
+                                    <a href="{{route('productAssortiment', ['product_id' => $product->id, app()->getLocale()])}}">{{ $product->name }} </a>
                                     <ul>
                                         @foreach($product->assortiment as $item)
-                                            <li><a>{{ $item->name }}</a></li>
+                                            <li><a href="{{route('assortiment', ['id' => $item->id, app()->getLocale()])}}">{{ $item->name }}</a></li>
                                         @endforeach
                                     </ul>
                                 </li>
@@ -85,10 +85,10 @@
                         <ul>
                         @foreach($products as $product)
                                 <li>
-                                    <a>{{ $product->name }} </a>
+                                    <a href="{{route('productAssortiment', ['product_id' => $product->id, app()->getLocale()])}}">{{ $product->name }} </a>
                                     <ul>
                                         @foreach($product->assortiment as $item)
-                                            <li><a>{{ $item->name }}</a></li>
+                                            <li><a href="{{route('assortiment', ['id' => $item->id, app()->getLocale()])}}">{{ $item->name }}</a></li>
                                         @endforeach
                                     </ul>
                                 </li>
@@ -100,10 +100,10 @@
                         <ul>
                             @foreach($products3 as $product)
                                 <li>
-                                    <a>{{ $product->name }} </a>
+                                    <a href="{{route('productAssortiment', ['product_id' => $product->id, app()->getLocale()])}}">{{ $product->name }} </a>
                                     <ul>
                                         @foreach($product->assortiment as $item)
-                                            <li><a>{{ $item->name }}</a></li>
+                                            <li><a href="{{route('assortiment', ['id' => $item->id, app()->getLocale()])}}">{{ $item->name }}</a></li>
                                         @endforeach
                                     </ul>
                                 </li>
