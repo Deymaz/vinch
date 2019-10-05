@@ -6,7 +6,7 @@ use App\Exceptions\UnsupportedImageFormatException;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
-class ProductFileManager
+class FileManager
 {
     public const DIR = 'images/';
 
@@ -23,6 +23,9 @@ class ProductFileManager
         switch ($file->getMimeType()) {
             case 'image/png':
                 $name .= '.png';
+                break;
+            case 'image/jpeg':
+                $name .= '.jpeg';
                 break;
             default:
                 throw new UnsupportedImageFormatException(sprintf(

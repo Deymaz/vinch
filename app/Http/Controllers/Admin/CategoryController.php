@@ -6,10 +6,12 @@ use App\Category;
 use App\Exceptions\ModelNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateCategoryRequest;
+use App\Services\FileManager;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use App\Services\RequestToModelMapper;
 use Illuminate\Http\RedirectResponse;
@@ -43,7 +45,13 @@ class CategoryController extends Controller
     public function create(CreateCategoryRequest $request)
     {
         $category = new Category;
-        RequestToModelMapper::map($category, $request->validated());
+        $data = $request->validated();
+
+        if ($request->hasFile('img_url')) {
+            $data['img_url'] = FileManager::save($request->file('img_url'), $data['name']);
+        }
+
+        RequestToModelMapper::map($category, $data);
         $category->save();
 
         return Redirect::route(
@@ -87,7 +95,14 @@ class CategoryController extends Controller
         if (null === $category) {
             throw new ModelNotFoundException('Category does not exists');
         }
-        RequestToModelMapper::map($category, $request->validated());
+        $data = $request->validated();
+        $fileName = $data['name'];
+
+        $data['img_url'] = $request->hasFile('img_url')
+            ? FileManager::save($request->file('img_url'), $fileName)
+            : FileManager::editName($category->img_url, $fileName);
+
+        RequestToModelMapper::map($category, $data);
         $category->save();
 
         return Redirect::route(
@@ -101,7 +116,9 @@ class CategoryController extends Controller
      */
     public function delete(int $id)
     {
-        Category::destroy([$id]);
+        $category = Category::find($id);
+        Storage::disk('public')->delete($category->img_url);
+        $category->delete();
 
         return Redirect::route(
             'categoriesList', ['locale' => Config::get('app.locale'), 'categories' => Category::all()]

@@ -9,6 +9,10 @@
         </div>
     @endforeach
     <input type="submit" class="margin-left-25 btn btn-success" value="Сохранить">
+    @foreach ($errors->all() as $error)
+        <div class="alert alert-danger">{{ $error }}</div>
+    @endforeach
 </form>
+
 
 @include('footer')

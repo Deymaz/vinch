@@ -27,9 +27,9 @@
         <textarea class="form-control" rows="5" cols="10" name="description_en" id="description_en"></textarea><br>
     </div>
     <input type="submit" class="margin-left-25 btn btn-success" value="Сохранить">
-    @error('file_url')
-    <div class="alert alert-danger">{{ $message }}</div>
-    @enderror
+    @foreach ($errors->all() as $error)
+        <div class="alert alert-danger">{{ $error }}</div>
+    @endforeach
 </form>
 
 @include('footer')

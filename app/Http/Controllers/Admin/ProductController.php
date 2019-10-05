@@ -7,7 +7,7 @@ use App\Exceptions\ModelNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateProductRequest;
 use App\Product;
-use App\Services\ProductFileManager;
+use App\Services\FileManager;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Redirect;
@@ -48,7 +48,7 @@ class ProductController extends Controller
         if ($request->hasFile('file_url')) {
             $category = Category::find((int)$data['category_id']);
             $fileName = sprintf('%s_%s', $category->name, $data['name']);
-            $data['file_url'] = ProductFileManager::save($request->file('file_url'), $fileName);
+            $data['file_url'] = FileManager::save($request->file('file_url'), $fileName);
         }
 
         RequestToModelMapper::map($product, $data);
@@ -83,8 +83,8 @@ class ProductController extends Controller
 
         $fileName = sprintf('%s_%s', $product->category->name, $data['name']);
         $data['file_url'] = $request->hasFile('file_url')
-            ? ProductFileManager::save($request->file('file_url'), $fileName)
-            : ProductFileManager::editName($product->file_url, $fileName);
+            ? FileManager::save($request->file('file_url'), $fileName)
+            : FileManager::editName($product->file_url, $fileName);
 
         RequestToModelMapper::map($product, $data);
         $product->save();
@@ -104,9 +104,7 @@ class ProductController extends Controller
             throw new ModelNotFoundException('Product does not exists');
         }
 
-        $fileUrl = $product->file_url;
-
-        Storage::disk('public')->delete($fileUrl);
+        Storage::disk('public')->delete($product->file_url);
         $product->delete();
 
         return Redirect::route('productsList', Config::get('app.locale'));
