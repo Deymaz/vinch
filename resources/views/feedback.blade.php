@@ -4,24 +4,25 @@
     @csrf
     <div class="feedback-container">
         <div>
-            <label for="name" class="feedback_label">Ваше имя</label>
+            <label for="name" class="feedback_label">{{__('messages.your_name')}}</label>
             <input class="" type="text" name="name" id="name">
         </div>
         <div>
-            <label for="email">Email адрес</label>
+            <label for="email" class="feedback_label">{{__('messages.your_email')}}</label>
             <input class="" type="text" name="email" id="email">
         </div>
 
         <div>
-            <label for="phone">Телефон</label>
+            <label for="phone" class="feedback_label">{{__('messages.your_phone')}}</label>
             <input class="" type="text" name="phone" id="phone">
         </div>
 
         <div>
-            <p>Ваш вопрос</p>
-            <textarea class="" type="text" name="question" id="question" rows="10" cols="45"></textarea>
+            <p>{{__('messages.your_message')}}</p>
+            <textarea class="" type="text" name="question" id="question" rows="5" cols="70"></textarea>
         </div>
-        <input type="submit" class="margin-left-25 btn btn-success" value="Сохранить">
+        <input type="submit" class="margin-left-25 small-margin-top btn btn-success" value="{{__('messages.send_btn')}}">
     </div>
 </form>
+
 @include('footer')

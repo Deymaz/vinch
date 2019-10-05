@@ -10,6 +10,10 @@
     padding-bottom: 10px;
 }
 
+.small-margin-top {
+    margin-top: 10px;
+}
+
 .textarea-admin {
     width: 600px;
     padding-left: 20px;
@@ -270,7 +274,7 @@ footer {
 
 .feedback-container {
     padding-top: 30px;
-    padding-left: 150px;
+    padding-left: 300px;
 }
 
 .feedback_label {

@@ -1,15 +1,12 @@
 @php
-    $category1 = \App\Category::find(4);
-    $category2 = \App\Category::find(1);
-    $category3 = \App\Category::find(2);
-    $products = $category1->products;
-    $products2 = $category2->products;
-    $products3 = $category3->products;
+    $subCategoriesSeed = \App\Category::where('parent_category_id' , 2)->get();
+    $subCategoriesProtect = \App\Category::where('parent_category_id' , 3)->get();
+    $subCategoriesMicro = \App\Category::where('parent_category_id' , 4)->get();
 @endphp
 
 <html>
 <head>
-    <title>App Name - @yield('header')</title>
+    <title>Vinch - @yield('header')</title>
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
 </head>
@@ -48,14 +45,14 @@
             <h1>LOGO</h1>
         </div>
         <div class="phones cell-3 cell-4-md cell-7-sm cell-6-mc text-right-sm">
-            <a href="tel:+7(749)512-34-56" class="phones-a">+7(749)512-34-56</a>
+            <a href="tel:{{__('messages.company_phone_number')}}" class="phones-a">{{__('messages.company_phone_number')}}</a>
             <span title="Заказать обратный звонок"
                   class="phones-span js-backcall-toggle">{{__('messages.callback')}}</span>
         </div>
         <div class="time cell-3 hidden-md">
             <span class="time-text gray_text">{{__('messages.work_time_phrase')}}:</span>
             <div class="time-inner">
-                пн-пт 10:00-20:00, сб-вс 10:00-18:00
+                {{__('messages.work_time')}}
             </div>
         </div>
 
@@ -66,14 +63,14 @@
             <nav>
                 <ul>
                     <li class="main_list">
-                        <a href="#">{{__('messages.seed_category') }}</a>
+                        <a href="{{route('subcategoriesList', ['id' => 2, app()->getLocale()])}}">{{__('messages.seed_category') }}</a>
                         <ul>
-                            @foreach($products2 as $product)
+                            @foreach($subCategoriesSeed as $category)
                                 <li>
-                                    <a href="{{route('productAssortiment', ['product_id' => $product->id, app()->getLocale()])}}">{{ $product->name }} </a>
+                                    <a href="{{route('productsToCategoryList', ['category_id' => $category->id, app()->getLocale()])}}">{{ $category->name }} </a>
                                     <ul>
-                                        @foreach($product->assortiment as $item)
-                                            <li><a href="{{route('assortiment', ['id' => $item->id, app()->getLocale()])}}">{{ $item->name }}</a></li>
+                                        @foreach($category->products as $product)
+                                            <li><a href="{{route('productAssortiment', ['product_id' => $product->id, app()->getLocale()])}}">{{ $product->name }}</a></li>
                                         @endforeach
                                     </ul>
                                 </li>
@@ -81,29 +78,29 @@
                         </ul>
                     </li>
                     <li class="main_list">
-                        <a href="#">{{__('messages.plant_protection_products_category') }}</a>
+                        <a href="{{route('subcategoriesList', ['id' => 3, app()->getLocale()])}}">{{__('messages.plant_protection_products_category') }}</a>
                         <ul>
-                        @foreach($products as $product)
+                            @foreach($subCategoriesProtect as $category)
                                 <li>
-                                    <a href="{{route('productAssortiment', ['product_id' => $product->id, app()->getLocale()])}}">{{ $product->name }} </a>
+                                    <a href="{{route('productsToCategoryList', ['category_id' => $category->id, app()->getLocale()])}}">{{ $category->name }} </a>
                                     <ul>
-                                        @foreach($product->assortiment as $item)
-                                            <li><a href="{{route('assortiment', ['id' => $item->id, app()->getLocale()])}}">{{ $item->name }}</a></li>
+                                        @foreach($category->products as $product)
+                                            <li><a href="{{route('productAssortiment', ['product_id' => $product->id, app()->getLocale()])}}">{{ $product->name }}</a></li>
                                         @endforeach
                                     </ul>
                                 </li>
-                        @endforeach
+                            @endforeach
                         </ul>
                     </li>
                     <li class="main_list">
-                        <a href="#">{{__('messages.microfertilizers_category') }}</a>
+                        <a href="{{route('subcategoriesList', ['id' => 4, app()->getLocale()])}}">{{__('messages.microfertilizers_category') }}</a>
                         <ul>
-                            @foreach($products3 as $product)
+                            @foreach($subCategoriesMicro as $category)
                                 <li>
-                                    <a href="{{route('productAssortiment', ['product_id' => $product->id, app()->getLocale()])}}">{{ $product->name }} </a>
+                                    <a href="{{route('productsToCategoryList', ['category_id' => $category->id, app()->getLocale()])}}">{{ $category->name }} </a>
                                     <ul>
-                                        @foreach($product->assortiment as $item)
-                                            <li><a href="{{route('assortiment', ['id' => $item->id, app()->getLocale()])}}">{{ $item->name }}</a></li>
+                                        @foreach($category->products as $product)
+                                            <li><a href="{{route('productAssortiment', ['product_id' => $product->id, app()->getLocale()])}}">{{ $product->name }}</a></li>
                                         @endforeach
                                     </ul>
                                 </li>
@@ -115,5 +112,4 @@
         </div>
         <div class="catalog_block_right"></div>
     </div>
-
 </header>

@@ -11,4 +11,10 @@ return [
     'callback' => 'Заказать обратный звонок',
     'work_time_phrase' => 'Время работы',
     'work_time' => 'пн-пт 10:00-20:00, сб-вс 10:00-18:00',
+    'company_phone_number' => '+380503858999',
+    'your_name' => 'Ваше имя',
+    'your_email' => 'Ваш email',
+    'your_phone' => 'Ваш телефон',
+    'your_message' => 'Введите ваше сообщение',
+    'send_btn' => 'Отправить',
 ];

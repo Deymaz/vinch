@@ -8,7 +8,7 @@
                             <h3>Logo</h3>
                         </div>
                         <div class="phones footer-phones">
-                            <a href="tel:+7(749)512-34-56" class="phones-a">+7(749)512-34-56</a>
+                            <a href="tel:{{__('messages.company_phone_number')}}" class="phones-a">{{__('messages.company_phone_number')}}</a>
                             <span title="{{__('messages.callback')}}" class="phones-span js-backcall-toggle">{{__('messages.callback')}}</span>
                         </div>
 
