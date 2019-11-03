@@ -7,7 +7,6 @@ use App\Exceptions\ModelNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateAssortimentRequest;
 use App\Product;
-use App\Services\ProductAssortimentFieldList;
 use App\Services\RequestToModelMapper;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Redirect;
@@ -35,9 +34,11 @@ class AssortimentController extends Controller
      */
     public function createPage(int $id)
     {
-        $fieldList = ProductAssortimentFieldList::list(Product::find($id));
+        if (null === Product::find($id)) {
+            throw new ModelNotFoundException(sprintf('Продукта с Id %s не существует', $id));
+        }
 
-        return view('admin.createAssortimentPage', ['fieldList' => $fieldList, 'id' => $id]);
+        return view('admin.createAssortimentPage', ['fieldList' => (new Assortiment())->getFillable(), 'id' => $id]);
     }
 
     /**
@@ -78,9 +79,7 @@ class AssortimentController extends Controller
             throw new ModelNotFoundException('Assortiment does not exists');
         }
 
-        $fieldList = ProductAssortimentFieldList::list($assortiment->product);
-
-        return view('admin.updateAssortimentPage', ['fieldList' => $fieldList, 'assortiment' => $assortiment]);
+        return view('admin.updateAssortimentPage', ['assortiment' => $assortiment]);
     }
 
     /**

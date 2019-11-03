@@ -23,6 +23,10 @@
     margin-left: 25px;
 }
 
+.margin_left_50 {
+    margin-left: 50px;
+}
+
 .padding-right {
     padding-right: 35px;
 }
@@ -242,6 +246,37 @@ footer {
    box-shadow: 0 0 5px #777777;
 }
 
+.subCategories-container {
+    padding-left: 200px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.subCategory-item {
+    padding-right: 50px;
+    padding-top: 35px;
+}
+
+.subCategories-link {
+    text-decoration: none !important;
+    cursor: pointer;
+}
+
+.subCategory-img {
+    width: 350px;
+    height: 350px;
+}
+
+.subCategory-img-block {
+    border: #1c7430 solid 1px;
+}
+
+.subCategory-name-block {
+    font-size: 20px;
+    text-align: center;
+}
+
 .js-arrow-up:before {
    content: "^";
    position: absolute;
@@ -279,4 +314,8 @@ footer {
 
 .feedback_label {
     width: 100px;
+}
+
+.assortiment_label {
+    width: 200px;
 }
