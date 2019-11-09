@@ -33,6 +33,7 @@
 
 .header {
     display: block;
+    padding-bottom: 15px;
 }
 
 .header .row {
@@ -318,4 +319,37 @@ footer {
 
 .assortiment_label {
     width: 200px;
+}
+
+#assortiment_table {
+    width: 80%;
+    text-align: left;
+    margin: auto auto 15px;
+}
+
+#assortiment_table thead {
+    font-size: large;
+    font-weight: bold;
+    background-color: #f5f5f5;
+}
+
+#assortiment_table td {
+    padding-left: 10px;
+}
+
+#assortiment_table thead td{
+    height: 50px;
+}
+
+#assortiment_table tbody tr {
+    border-bottom: 1px solid gray;
+    height: 35px;
+}
+
+#assortiment_table tbody tr:hover {
+    background-color: #f5f5f5;
+}
+
+#assortiment_table tbody td {
+    width: 70px;
 }

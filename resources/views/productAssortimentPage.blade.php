@@ -1,16 +1,17 @@
 @include('header')
 
-<table>
-<thead>
-<td>
-    @foreach ($filledFields as $filledField)
-        <tr>{{ $filledField }}</tr>
-    @endforeach
-</td>
-</thead>
-@foreach($assortiment as $item)
+<table id="assortiment_table">
+    <thead>
+    <tr>
+        @foreach ($filledFields as $filledField)
+            <td>{{ $filledField }}</td>
+        @endforeach
+    </tr>
+    </thead>
+    <tbody>
+    @foreach($assortiment as $item)
         <tr>
-            <td>{{ $item->name }}</td>
+            <td style="font-weight: bold">{{ $item->name }}</td>
             @if ($item->fao)
                 <td>{{ $item->fao }}</td>
             @endif
@@ -103,7 +104,8 @@
             @endif
 
         </tr>
-@endforeach
+    @endforeach
+    </tbody>
 </table>
 
 @include('footer')
