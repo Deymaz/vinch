@@ -14,12 +14,17 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return new \Symfony\Component\HttpFoundation\Response('111');
 });
 
 
-Route::get('/admin/login', 'Auth\LoginController@loginPage');
-Route::post('/admin/login', 'Auth\LoginController@login')->name('login');
+Route::get('/admin/login', 'Auth\LoginController@loginPage')
+    ->name('loginPage')
+    ->middleware('web', 'locale')
+    ->prefix('{locale}')
+    ->where(['locale' => '[a-zA-Z]{2}']);
+Route::post('/admin/login', 'Auth\LoginController@login')
+    ->name('login');
 
 Route::group(['middleware' => 'auth'], function () {
 });

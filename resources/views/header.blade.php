@@ -37,6 +37,9 @@
                 </div>
             </div>
         </div>
+        @if (Auth::check())
+            <a href="{{route('adminPanel', [app()->getLocale()])}}">Админка</a>
+        @endif
     </div>
 
     <div class="row header-first">
@@ -44,10 +47,9 @@
         <div style="min-width: 25%" class="logo cell-3 cell-4-md cell-5-sm cell-6-mc">
             <h1>LOGO</h1>
         </div>
-        <div class="phones cell-3 cell-4-md cell-7-sm cell-6-mc text-right-sm">
+        <div class="phones" style="padding-right: 50px">
             <a href="tel:{{__('messages.company_phone_number')}}" class="phones-a">{{__('messages.company_phone_number')}}</a>
-            <span title="Заказать обратный звонок"
-                  class="phones-span js-backcall-toggle">{{__('messages.callback')}}</span>
+
         </div>
         <div class="time cell-3 hidden-md">
             <span class="time-text gray_text">{{__('messages.work_time_phrase')}}:</span>
@@ -61,48 +63,72 @@
         <div class="catalog_block_left"></div>
         <div class="catalog_block_center">
             <nav>
-                <ul>
+                <ul class="topmenu">
                     <li class="main_list">
                         <a href="{{route('subcategoriesList', ['id' => 2, app()->getLocale()])}}">{{__('messages.seed_category') }}</a>
-                        <ul>
+                        <ul class="submenu">
                             @foreach($subCategoriesSeed as $category)
-                                <li>
-                                    <a href="{{route('productsToCategoryList', ['category_id' => $category->id, app()->getLocale()])}}">{{ $category->name }} </a>
+                                <li class="dropdown">
+                                    <a href="{{route('productsToCategoryList', ['category_id' => $category->id, app()->getLocale()])}}">
+                                        {{ $category->name }}
+                                    </a>
+                                    @if(count($category->products))
                                     <ul>
                                         @foreach($category->products as $product)
-                                            <li><a href="{{route('productAssortiment', ['product_id' => $product->id, app()->getLocale()])}}">{{ $product->name }}</a></li>
+                                            <li>
+                                                <a href="{{route('productAssortiment', ['product_id' => $product->id, app()->getLocale()])}}">
+                                                    {{ $product->name }}
+                                                </a>
+                                            </li>
                                         @endforeach
                                     </ul>
+                                    @endif
                                 </li>
                             @endforeach
                         </ul>
                     </li>
-                    <li class="main_list">
+                    <li>
                         <a href="{{route('subcategoriesList', ['id' => 3, app()->getLocale()])}}">{{__('messages.plant_protection_products_category') }}</a>
-                        <ul>
+                        <ul class="submenu">
                             @foreach($subCategoriesProtect as $category)
-                                <li>
-                                    <a href="{{route('productsToCategoryList', ['category_id' => $category->id, app()->getLocale()])}}">{{ $category->name }} </a>
+                                <li class="dropdown">
+                                    <a href="{{route('productsToCategoryList', ['category_id' => $category->id, app()->getLocale()])}}">
+                                        {{ $category->name }}
+                                    </a>
+                                    @if(count($category->products))
                                     <ul>
                                         @foreach($category->products as $product)
-                                            <li><a href="{{route('productAssortiment', ['product_id' => $product->id, app()->getLocale()])}}">{{ $product->name }}</a></li>
+                                            <li>
+                                                <a href="{{route('productAssortiment', ['product_id' => $product->id, app()->getLocale()])}}">
+                                                    {{ $product->name }}
+                                                </a>
+                                            </li>
                                         @endforeach
                                     </ul>
+                                    @endif
                                 </li>
                             @endforeach
                         </ul>
                     </li>
-                    <li class="main_list">
+                    <li>
                         <a href="{{route('subcategoriesList', ['id' => 4, app()->getLocale()])}}">{{__('messages.microfertilizers_category') }}</a>
-                        <ul>
+                        <ul class="submenu">
                             @foreach($subCategoriesMicro as $category)
-                                <li>
-                                    <a href="{{route('productsToCategoryList', ['category_id' => $category->id, app()->getLocale()])}}">{{ $category->name }} </a>
+                                <li class="dropdown">
+                                    <a href="{{route('productsToCategoryList', ['category_id' => $category->id, app()->getLocale()])}}">
+                                        {{ $category->name }}
+                                    </a>
+                                    @if(count($category->products))
                                     <ul>
                                         @foreach($category->products as $product)
-                                            <li><a href="{{route('productAssortiment', ['product_id' => $product->id, app()->getLocale()])}}">{{ $product->name }}</a></li>
+                                            <li>
+                                                <a href="{{route('productAssortiment', ['product_id' => $product->id, app()->getLocale()])}}">
+                                                    {{ $product->name }}
+                                                </a>
+                                            </li>
                                         @endforeach
                                     </ul>
+                                    @endif
                                 </li>
                             @endforeach
                         </ul>

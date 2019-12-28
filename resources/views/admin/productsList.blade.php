@@ -1,5 +1,7 @@
 @include('header')
-    @foreach ($products as $product)
+<div class="wrapper">
+    <div class="content">
+        @foreach ($products as $product)
             <div>
                 <h3>{{$product->name}} ({{ $product->category->name }})</h3>
                 <div class="float-left small-padding-right">
@@ -11,15 +13,19 @@
                        href="{{ route('createAssortimentPage', [app()->getLocale(), $product->id]) }}">Добавить
                         ассортимент</a>
                 </div>
-                <div class="float-left small-padding-right"><a class="btn btn-info" href="{{ route('assortimentList', [app()->getLocale(), $product->id]) }}">Ассортимент
+                <div class="float-left small-padding-right"><a class="btn btn-info"
+                                                               href="{{ route('assortimentList', [app()->getLocale(), $product->id]) }}">Ассортимент
                         продукта</a>
                 </div>
-                <form method="post" action="{{route("deleteProduct", [app()->getLocale(), $product->id])}}">
-                    @csrf
-                    <input type="submit" class="btn btn-danger" value="Удалить">
-                </form>
+                <div class="float-left small-padding-right">
+                    <form method="post" action="{{route("deleteProduct", [app()->getLocale(), $product->id])}}">
+                        @csrf
+                        <input type="submit" class="btn btn-danger" value="Удалить">
+                    </form>
+                </div>
             </div>
-        <hr>
-    @endforeach
-
+            <hr>
+        @endforeach
+    </div>
+</div>
 @include('footer')

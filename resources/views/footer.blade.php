@@ -1,3 +1,4 @@
+</div>
 <footer class="footer">
     <div class="container">
         <div class="footer-inner row">
@@ -9,7 +10,6 @@
                         </div>
                         <div class="phones footer-phones">
                             <a href="tel:{{__('messages.company_phone_number')}}" class="phones-a">{{__('messages.company_phone_number')}}</a>
-                            <span title="{{__('messages.callback')}}" class="phones-span js-backcall-toggle">{{__('messages.callback')}}</span>
                         </div>
 
                     </div>

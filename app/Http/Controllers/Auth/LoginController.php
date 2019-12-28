@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\View\View;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
 {
@@ -40,6 +43,9 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    /**
+     * @return Factory|View
+     */
     public function loginPage()
     {
         return view('auth.loginPage');
@@ -47,11 +53,15 @@ class LoginController extends Controller
 
     /**
      * @param Request $request
+     *
+     * @return RedirectResponse
      */
     public function login(Request $request)
     {
         if (Auth::attempt($request->only('login', 'password'))) {
             Auth::login(Auth::user(), true);
         }
+
+        return Redirect::route('adminPanel');
     }
 }
