@@ -20,6 +20,7 @@ class FileManager
      */
     public static function save(UploadedFile $file, string $name): string
     {
+        $name = TransliterationService::translit($name);
         switch ($file->getMimeType()) {
             case 'image/png':
                 $name .= '.png';
@@ -34,7 +35,7 @@ class FileManager
                     ));
         }
 
-        return $file->storePubliclyAs('images', strtolower($name));
+        return $file->storePubliclyAs('images', $name);
     }
 
     /**
@@ -44,8 +45,8 @@ class FileManager
      */
     public static function editName(string $oldName, string $newName): string
     {
-        $newName = self::DIR . $newName . '.' . self::getFileExtension($oldName);
-        Storage::disk('public')->move($oldName, strtolower($newName));
+        $newName = self::DIR . TransliterationService::translit($newName) . '.' . self::getFileExtension($oldName);
+        Storage::disk('public')->move($oldName, $newName);
 
         return $newName;
     }

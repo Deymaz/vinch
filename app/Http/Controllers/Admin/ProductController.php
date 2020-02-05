@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateProductRequest;
 use App\Product;
 use App\Services\FileManager;
+use App\Services\TransliterationService;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Redirect;
@@ -47,7 +48,7 @@ class ProductController extends Controller
         $data = $request->validated();
         if ($request->hasFile('file_url')) {
             $category = Category::find((int)$data['category_id']);
-            $fileName = sprintf('%s_%s', $category->name, $data['name']);
+            $fileName = sprintf('%s_%s_%s', $category->id, $category->name, $data['name']);
             $data['file_url'] = FileManager::save($request->file('file_url'), $fileName);
         }
 
@@ -81,7 +82,8 @@ class ProductController extends Controller
 
         $data = $request->validated();
 
-        $fileName = sprintf('%s_%s', $product->category->name, $data['name']);
+        $fileName = sprintf('%s_%s_%s', $product->category->id, $product->category->name, $data['name']);
+
         $data['file_url'] = $request->hasFile('file_url')
             ? FileManager::save($request->file('file_url'), $fileName)
             : FileManager::editName($product->file_url, $fileName);

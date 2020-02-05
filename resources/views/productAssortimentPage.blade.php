@@ -1,6 +1,6 @@
 @include('header')
-<div class="wrapper">
-    <div class="content">
+<div class="wrapper" style="display: block">
+    <div class="content" style="display: block">
         <table id="assortiment_table">
             <thead>
             <tr>

@@ -54,11 +54,11 @@ body {
     height: 100%;
 }
 .wrapper {
-    /*display: table;*/
+    display: table;
     height: 100%;
 }
 .content {
-    /*display: table-row;*/
+    display: table-row;
     height: 100%;
 }
 

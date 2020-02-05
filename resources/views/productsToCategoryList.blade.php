@@ -1,12 +1,23 @@
-
 @include('header')
 <div class="wrapper">
     <div class="content">
-        @foreach($products as $product)
-            <a href="{{ route('productAssortiment', [app()->getLocale(), 'id' => $product->id]) }}">
-                <h3>{{ $product->name }}</h3>
-            </a> <br>
-        @endforeach
+        <div class="subCategories-container">
+            @foreach($products as $product)
+                <div class="subCategory-item">
+                    <a class="subCategories-link"
+                       href="{{ route('productAssortiment', [app()->getLocale(), 'product_id' => $product->id]) }}">
+                        <div>
+                            <div class="subCategory-img-block">
+                                <img class="subCategory-img" src="{{ asset("storage/$product->file_url") }}">
+                            </div>
+                            <div class="subCategory-name-block">
+                                <p>{{ $product->name }}</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            @endforeach
+        </div>
     </div>
 </div>
 @include('footer')

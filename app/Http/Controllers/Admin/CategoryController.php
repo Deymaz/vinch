@@ -7,6 +7,7 @@ use App\Exceptions\ModelNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateCategoryRequest;
 use App\Services\FileManager;
+use App\Services\TransliterationService;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Config;
@@ -48,7 +49,9 @@ class CategoryController extends Controller
         $data = $request->validated();
 
         if ($request->hasFile('img_url')) {
-            $data['img_url'] = FileManager::save($request->file('img_url'), $data['name']);
+            $data['img_url'] = FileManager::save(
+                $request->file('img_url'),
+                $data['parent_category_id'] . '_' .  $data['name']);
         }
 
         RequestToModelMapper::map($category, $data);
@@ -96,11 +99,13 @@ class CategoryController extends Controller
             throw new ModelNotFoundException('Category does not exists');
         }
         $data = $request->validated();
-        $fileName = $data['name'];
+        $fileName = $data['parent_category_id'] . '_' . $data['name'];
 
-        $data['img_url'] = $request->hasFile('img_url')
-            ? FileManager::save($request->file('img_url'), $fileName)
-            : FileManager::editName($category->img_url, $fileName);
+        if ($category->name !== $data['name']) {
+            $data['img_url'] = $request->hasFile('img_url')
+                ? FileManager::save($request->file('img_url'), $fileName)
+                : FileManager::editName($category->img_url, $fileName);
+        }
 
         RequestToModelMapper::map($category, $data);
         $category->save();
