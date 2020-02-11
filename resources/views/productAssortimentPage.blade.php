@@ -5,7 +5,7 @@
             <thead>
             <tr>
                 @foreach ($filledFields as $filledField)
-                    <td>{{ $filledField }}</td>
+                    <td>{{ __('messages.' . $filledField)}}</td>
                 @endforeach
             </tr>
             </thead>

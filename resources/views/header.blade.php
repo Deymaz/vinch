@@ -38,14 +38,23 @@
             </div>
         </div>
         @if (Auth::check())
+            <script src="https://use.fontawesome.com/1aa4e48e6b.js"></script>
             <a href="{{route('adminPanel', [app()->getLocale()])}}">Админка</a>
+            <div style="padding-left: 5px;">
+                <form method="post" action="{{route('logout')}}">
+                    @csrf
+                    <button style="background: #85a71e; border: none; cursor: pointer">
+                        <i class="fa fa-power-off" aria-hidden="true"></i>
+                    </button>
+                </form>
+            </div>
         @endif
     </div>
 
     <div class="row header-first">
 
         <div style="min-width: 25%" class="logo cell-3 cell-4-md cell-5-sm cell-6-mc">
-            <h1>LOGO</h1>
+            <h1>Vinch</h1>
         </div>
         <div class="phones" style="padding-right: 50px">
             <a href="tel:{{__('messages.company_phone_number')}}" class="phones-a">{{__('messages.company_phone_number')}}</a>

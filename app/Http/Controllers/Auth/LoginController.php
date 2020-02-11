@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -60,8 +61,24 @@ class LoginController extends Controller
     {
         if (Auth::attempt($request->only('login', 'password'))) {
             Auth::login(Auth::user(), true);
+
+            return Redirect::route('adminPanel', [Config::get('app.locale')]);
         }
 
-        return Redirect::route('adminPanel');
+        $request->session()->flash('alert', 'Неправильный логин или пароль');
+
+        return Redirect::route('loginPage', [Config::get('app.locale')]);
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return RedirectResponse
+     */
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        return Redirect::route('loginPage', [Config::get('app.locale')]);
     }
 }

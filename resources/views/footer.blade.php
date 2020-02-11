@@ -6,7 +6,7 @@
                 <div class="row">
                     <div class="footer-menu cell-6 cell-12-xs">
                         <div class="footer-logo hide-xs">
-                            <h3>Logo</h3>
+                            <h3>Vinch</h3>
                         </div>
                         <div class="phones footer-phones">
                             <a href="tel:{{__('messages.company_phone_number')}}" class="phones-a">{{__('messages.company_phone_number')}}</a>
@@ -35,6 +35,5 @@
                 </div>
             </div>
             </div>
-        <button class="js-arrow-up"></button>
     </div>
 </footer>
