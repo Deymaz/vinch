@@ -6,7 +6,7 @@
                 <div class="row">
                     <div class="footer-menu cell-6 cell-12-xs">
                         <div class="footer-logo hide-xs">
-                            <h3>Vinch</h3>
+                            <h3><a style="color: white" href="{{ route('main', [app()->getLocale()]) }}">Vinch</a></h3>
                         </div>
                         <div class="phones footer-phones">
                             <a href="tel:{{__('messages.company_phone_number')}}" class="phones-a">{{__('messages.company_phone_number')}}</a>
