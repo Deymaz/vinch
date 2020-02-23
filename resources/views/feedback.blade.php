@@ -1,30 +1,23 @@
 @include('header')
-<div class="wrapper">
+<div class="wrapper" >
     <div class="content">
-        <form action="{{route('feedbackSubmit', app()->getLocale())}}" method="POST">
+        <form id="contact" action="" method="post" action="{{route('feedbackSubmit', app()->getLocale())}}">
             @csrf
-            <div class="feedback-container">
-                <div>
-                    <label for="name" class="feedback_label">{{__('messages.your_name')}}</label>
-                    <input class="" type="text" name="name" id="name">
-                </div>
-                <div>
-                    <label for="email" class="feedback_label">{{__('messages.your_email')}}</label>
-                    <input class="" type="text" name="email" id="email">
-                </div>
-
-                <div>
-                    <label for="phone" class="feedback_label">{{__('messages.your_phone')}}</label>
-                    <input class="" type="text" name="phone" id="phone">
-                </div>
-
-                <div>
-                    <p>{{__('messages.your_message')}}</p>
-                    <textarea class="" type="text" name="question" id="question" rows="5" cols="70"></textarea>
-                </div>
-                <input type="submit" class="margin-left-25 small-margin-top btn btn-success"
-                       value="{{__('messages.send_btn')}}">
-            </div>
+            <fieldset>
+                <input placeholder="{{__('messages.your_name')}}" type="text" tabindex="1" required autofocus>
+            </fieldset>
+            <fieldset>
+                <input placeholder="{{__('messages.your_email')}}" type="email" tabindex="2" required>
+            </fieldset>
+            <fieldset>
+                <input placeholder="{{__('messages.your_phone')}}" type="tel" tabindex="3" required>
+            </fieldset>
+            <fieldset>
+                <textarea placeholder="Type your message here...." tabindex="5" required></textarea>
+            </fieldset>
+            <fieldset>
+                <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">{{__('messages.send_btn')}}</button>
+            </fieldset>
         </form>
     </div>
 </div>

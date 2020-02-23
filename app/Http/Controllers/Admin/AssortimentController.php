@@ -7,6 +7,7 @@ use App\Exceptions\ModelNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateAssortimentRequest;
 use App\Product;
+use App\Services\CsvToJsonParser;
 use App\Services\RequestToModelMapper;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Redirect;
@@ -58,7 +59,10 @@ class AssortimentController extends Controller
         }
 
         $assortiment = new Assortiment;
-        RequestToModelMapper::map($assortiment, array_merge(['product_id' => $product->id], $request->validated()));
+        $fileParser = new CsvToJsonParser();
+        $json = $fileParser->parse($request->file('content'));
+
+        RequestToModelMapper::map($assortiment, ['product_id' => $product->id, 'content' => $json]);
         $assortiment->save();
 
         return Redirect::route('productsList', ['locale' => Config::get('app.locale')]);
@@ -98,7 +102,10 @@ class AssortimentController extends Controller
             throw new ModelNotFoundException('Assortiment does not exists');
         }
 
-        RequestToModelMapper::map($assortiment, $request->validated());
+        $fileParser = new CsvToJsonParser();
+        $json = $fileParser->parse($request->file('content'));
+
+        RequestToModelMapper::map($assortiment, ['content' => $json]);
         $assortiment->save();
 
         return Redirect::route('productsList',

@@ -7,7 +7,6 @@ use App\Exceptions\ModelNotFoundException;
 use App\Product;
 use Illuminate\View\View;
 use Illuminate\Contracts\View\Factory;
-use App\Services\AssortimentFieldViewHandler;
 
 class AssortimentController extends Controller
 {
@@ -26,11 +25,14 @@ class AssortimentController extends Controller
             throw new ModelNotFoundException('Product does not exists');
         }
 
-        $fieldHandler = new AssortimentFieldViewHandler();
-        $filledFields = $fieldHandler->getFilledFields($product);
+        /** @var Assortiment $assortiment */
         $assortiment = $product->assortiment;
+        $data = $assortiment->toArray();
+        $content = array_shift($data)['content'];
+        $content = json_decode($content, true);
+        $header = array_shift($content);
 
-        return view('productAssortimentPage', ['filledFields' => $filledFields, 'assortiment' => $assortiment]);
+        return view('productAssortimentPage', ['header' => $header, 'content' => $content]);
     }
 
     /**
