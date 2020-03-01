@@ -25,12 +25,16 @@ class AssortimentController extends Controller
             throw new ModelNotFoundException('Product does not exists');
         }
 
+        $content = $header = [];
         /** @var Assortiment $assortiment */
         $assortiment = $product->assortiment;
         $data = $assortiment->toArray();
-        $content = array_shift($data)['content'];
-        $content = json_decode($content, true);
-        $header = array_shift($content);
+
+        if (!empty($data)) {
+            $content = array_shift($data)['content'];
+            $content = json_decode($content, true);
+            $header = array_shift($content);
+        }
 
         return view('productAssortimentPage', ['header' => $header, 'content' => $content]);
     }

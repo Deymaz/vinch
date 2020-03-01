@@ -520,3 +520,26 @@ fieldset {
 :-ms-input-placeholder {
     color: #888;
 }
+
+.abous_us_text_wrapper {
+    font-family: Stolzl, sans-serif;
+    text-align: center;
+    width: 100%;
+    background-size: cover;
+    margin-bottom: 80px;
+}
+.abous_us_text_wrapper h2 {
+    font-family: sans-serif;
+    color: #a0cb63;
+    font-weight: bold;
+}
+
+.about_as_text_block {
+    opacity: unset;
+    color: white;
+    font-size: large;
+    width: 800px;
+    display: inline-block;
+    padding: 3px;
+    padding-bottom: 30px;
+}

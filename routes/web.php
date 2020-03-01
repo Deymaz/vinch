@@ -16,12 +16,9 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Redirect;
 
 Route::get('/', function () {
-    return Redirect::route('welcome', [Config::get('app.locale')]);
+    return Redirect::route('aboutUs', [Config::get('app.locale')]);
 })->name('main');
 
-Route::get('/welcome', function () {
-    return view('mainPage');
-})->name('welcome')->middleware('web', 'locale')->prefix('{locale}') ->where(['locale' => '[a-zA-Z]{2}']);
 
 Route::get('/admin/login', 'Auth\LoginController@loginPage')
     ->name('loginPage')
